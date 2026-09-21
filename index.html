@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PetCare — Sistema de Gestão</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- =====================================================
+     TELA DE LOGIN
+===================================================== -->
+
+    <div class="login-screen" id="loginScreen">
+
+        <div class="login-background-paw paw-1">🐾</div>
+        <div class="login-background-paw paw-2">🐾</div>
+
+        <div class="login-card">
+
+            <div class="login-logo">
+                <div class="login-logo-icon">
+                    🐾
+                </div>
+
+                <div>
+                    <strong>PetCare</strong>
+                    <span>Pet Shop</span>
+                </div>
+            </div>
+
+
+            <div class="login-title">
+                <h1>Bem-vindo de volta!</h1>
+                <p>Entre na sua conta para acessar o sistema.</p>
+            </div>
+
+
+            <form id="loginForm">
+
+                <label class="login-label">
+                    Usuário
+
+                    <div class="login-input">
+                        <span>👤</span>
+
+                        <input type="text" id="loginUser" placeholder="Digite seu usuário" autocomplete="username"
+                            required>
+                    </div>
+                </label>
+
+
+                <label class="login-label">
+                    Senha
+
+                    <div class="login-input">
+                        <span>🔒</span>
+
+                        <input type="password" id="loginPassword" placeholder="Digite sua senha"
+                            autocomplete="current-password" required>
+
+                        <button type="button" id="showPassword" class="password-toggle">
+                            👁
+                        </button>
+                    </div>
+                </label>
+
+
+                <div class="login-options">
+
+                    <label class="remember">
+                        <input type="checkbox" id="rememberUser">
+                        <span>Lembrar usuário</span>
+                    </label>
+
+                    <button type="button" class="forgot-password" id="forgotPassword">
+                        Esqueci minha senha
+                    </button>
+
+                </div>
+
+
+                <button class="login-button" type="submit">
+                    Entrar no sistema
+                    <span>→</span>
+                </button>
+
+                <div class="login-error" id="loginError">
+                    Usuário ou senha incorretos.
+                </div>
+
+            </form>
+
+
+            <div class="login-demo">
+
+                <strong>🔑 Acesso para teste</strong>
+
+                <div>
+                    <span>Chefe</span>
+                    <code>chefe / 1234</code>
+                </div>
+
+                <div>
+                    <span>Funcionário</span>
+                    <code>funcionario / 1234</code>
+                </div>
+
+            </div>
+
+
+            <div class="login-footer">
+                <span>🐾</span>
+                Sistema de gestão para Pet Shop
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+     SISTEMA PRINCIPAL
+===================================================== -->
+
+    <div class="app" id="mainApp">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <div class="logo-icon">
+                    🐾
+                </div>
+
+                <div>
+                    <strong>PetCare</strong>
+                    <span>Pet Shop</span>
+                </div>
+
+            </div>
+
+
+            <nav>
+
+                <button class="menu-item active" data-page="dashboard">
+                    <span>⌂</span>
+                    Dashboard
+                </button>
+
+                <button class="menu-item" data-page="agendamentos">
+                    <span>📅</span>
+                    Agendamentos
+                </button>
+
+                <button class="menu-item" data-page="clientes">
+                    <span>🐶</span>
+                    Clientes & Pets
+                </button>
+
+                <button class="menu-item" data-page="financeiro">
+                    <span>💰</span>
+                    Financeiro
+                </button>
+
+                <button class="menu-item" data-page="estoque">
+                    <span>📦</span>
+                    Estoque
+                </button>
+
+                <button class="menu-item" data-page="vendas">
+                    <span>🧾</span>
+                    Vendas
+                </button>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <div class="user-box">
+
+                    <div class="avatar" id="userAvatar">
+                        C
+                    </div>
+
+                    <div>
+
+                        <strong id="loggedUser">
+                            Chefe
+                        </strong>
+
+                        <small id="loggedRole">
+                            Administrador
+                        </small>
+
+                    </div>
+
+                    <button class="logout-button" id="logoutButton" title="Sair">
+                        ⇥
+                    </button>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN -->
+
+        <main class="main">
+
+            <header class="topbar">
+
+                <div>
+
+                    <h1 id="pageTitle">
+                        Dashboard
+                    </h1>
+
+                    <p id="pageSubtitle">
+                        Visão geral do seu Pet Shop
+                    </p>
+
+                </div>
+
+
+                <div class="top-actions">
+
+                    <button class="icon-button" title="Notificações">
+                        🔔
+                        <i></i>
+                    </button>
+
+                    <button class="primary-button" id="quickAppointment">
+                        + Novo agendamento
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <section class="page active-page" id="dashboard">
+
+                <div class="welcome">
+
+                    <div>
+
+                        <span>
+                            Bom dia! 👋
+                        </span>
+
+                        <h2>
+                            Como está o movimento hoje?
+                        </h2>
+
+                        <p>
+                            Acompanhe os principais números do seu Pet Shop.
+                        </p>
+
+                    </div>
+
+                    <div class="welcome-paw">
+                        🐾
+                    </div>
+
+                </div>
+
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon green">
+                            💰
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Faturamento hoje
+                            </span>
+
+                            <strong id="dashToday">
+                                R$ 0,00
+                            </strong>
+
+                            <small class="positive">
+                                ↑ 12,5% este mês
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon blue">
+                            📈
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Faturamento mensal
+                            </span>
+
+                            <strong id="dashMonth">
+                                R$ 0,00
+                            </strong>
+
+                            <small class="positive">
+                                ↑ 8,2% comparado ao mês anterior
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon purple">
+                            📊
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Faturamento anual
+                            </span>
+
+                            <strong id="dashYear">
+                                R$ 0,00
+                            </strong>
+
+                            <small>
+                                Acumulado no ano
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon orange">
+                            📅
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Agendamentos hoje
+                            </span>
+
+                            <strong id="dashAppointments">
+                                0
+                            </strong>
+
+                            <small>
+                                Atendimentos programados
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-grid">
+
+                    <div class="panel chart-panel">
+
+                        <div class="panel-header">
+
+                            <div>
+
+                                <h3>
+                                    Movimento financeiro
+                                </h3>
+
+                                <p>
+                                    Faturamento dos últimos 7 dias
+                                </p>
+
+                            </div>
+
+                            <select id="chartPeriod">
+
+                                <option>
+                                    Últimos 7 dias
+                                </option>
+
+                                <option>
+                                    Últimos 30 dias
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="chart-container">
+
+                            <canvas id="financeChart"></canvas>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+
+                                <h3>
+                                    Próximos atendimentos
+                                </h3>
+
+                                <p>
+                                    Agenda de hoje
+                                </p>
+
+                            </div>
+
+                            <button class="text-button" data-page-link="agendamentos">
+                                Ver agenda
+                            </button>
+
+                        </div>
+
+
+                        <div class="appointment-list" id="dashboardAppointments">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Resumo rápido
+                            </h3>
+
+                            <p>
+                                Informações importantes do dia
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-grid">
+
+                        <div class="quick-item">
+
+                            <span class="quick-emoji">
+                                🛁
+                            </span>
+
+                            <div>
+
+                                <strong id="totalBaths">
+                                    0
+                                </strong>
+
+                                <small>
+                                    Banhos hoje
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quick-item">
+
+                            <span class="quick-emoji">
+                                ✂️
+                            </span>
+
+                            <div>
+
+                                <strong id="totalGrooms">
+                                    0
+                                </strong>
+
+                                <small>
+                                    Tosas hoje
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quick-item">
+
+                            <span class="quick-emoji">
+                                🐾
+                            </span>
+
+                            <div>
+
+                                <strong id="totalPets">
+                                    0
+                                </strong>
+
+                                <small>
+                                    Pets cadastrados
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quick-item">
+
+                            <span class="quick-emoji">
+                                📦
+                            </span>
+
+                            <div>
+
+                                <strong id="lowStock">
+                                    0
+                                </strong>
+
+                                <small>
+                                    Produtos com estoque baixo
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= AGENDAMENTOS ================= -->
+
+            <section class="page" id="agendamentos">
+
+                <div class="section-actions">
+
+                    <div class="search-box">
+
+                        🔎
+
+                        <input type="text" id="searchAppointment" placeholder="Buscar cliente ou pet...">
+
+                    </div>
+
+                    <input type="date" id="appointmentDate">
+
+                    <button class="primary-button" id="newAppointment">
+                        + Novo agendamento
+                    </button>
+
+                </div>
+
+
+                <div class="appointment-board">
+
+                    <div class="board-header">
+
+                        <div>
+
+                            <h3>
+                                Agenda
+                            </h3>
+
+                            <p>
+                                Atendimentos programados
+                            </p>
+
+                        </div>
+
+
+                        <div class="status-filter">
+
+                            <button class="filter-btn active" data-filter="all">
+                                Todos
+                            </button>
+
+                            <button class="filter-btn" data-filter="Agendado">
+                                Agendados
+                            </button>
+
+                            <button class="filter-btn" data-filter="Em atendimento">
+                                Em atendimento
+                            </button>
+
+                            <button class="filter-btn" data-filter="Finalizado">
+                                Finalizados
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="appointments-table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Horário
+                                    </th>
+
+                                    <th>
+                                        Cliente
+                                    </th>
+
+                                    <th>
+                                        Pet
+                                    </th>
+
+                                    <th>
+                                        Serviço
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Ações
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="appointmentsTable">
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= CLIENTES ================= -->
+
+            <section class="page" id="clientes">
+
+                <div class="section-actions">
+
+                    <div class="search-box">
+
+                        🔎
+
+                        <input type="text" id="searchClient" placeholder="Buscar cliente ou pet...">
+
+                    </div>
+
+                    <button class="primary-button" id="newClient">
+                        + Novo cliente
+                    </button>
+
+                </div>
+
+
+                <div class="clients-grid" id="clientsGrid">
+                </div>
+
+            </section>
+
+
+            <!-- ================= FINANCEIRO ================= -->
+
+            <section class="page" id="financeiro">
+
+                <div class="finance-periods">
+
+                    <button class="period-btn active">
+                        Hoje
+                    </button>
+
+                    <button class="period-btn">
+                        Este mês
+                    </button>
+
+                    <button class="period-btn">
+                        Este ano
+                    </button>
+
+                </div>
+
+
+                <div class="finance-cards">
+
+                    <div class="finance-card">
+
+                        <span>
+                            Receita
+                        </span>
+
+                        <strong id="financeRevenue">
+                            R$ 0,00
+                        </strong>
+
+                        <small>
+                            Vendas e serviços
+                        </small>
+
+                    </div>
+
+
+                    <div class="finance-card">
+
+                        <span>
+                            Serviços
+                        </span>
+
+                        <strong id="financeServices">
+                            0
+                        </strong>
+
+                        <small>
+                            Atendimentos realizados
+                        </small>
+
+                    </div>
+
+
+                    <div class="finance-card">
+
+                        <span>
+                            Ticket médio
+                        </span>
+
+                        <strong id="financeTicket">
+                            R$ 0,00
+                        </strong>
+
+                        <small>
+                            Média por atendimento
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Movimentações
+                            </h3>
+
+                            <p>
+                                Histórico financeiro
+                            </p>
+
+                        </div>
+
+                        <button class="secondary-button" id="exportSales">
+                            ⬇ Exportar
+                        </button>
+
+                    </div>
+
+
+                    <div class="appointments-table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Data
+                                    </th>
+
+                                    <th>
+                                        Cliente
+                                    </th>
+
+                                    <th>
+                                        Pet
+                                    </th>
+
+                                    <th>
+                                        Serviço
+                                    </th>
+
+                                    <th>
+                                        Valor
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="financeTable">
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ESTOQUE ================= -->
+
+            <section class="page" id="estoque">
+
+                <div class="section-actions">
+
+                    <div class="search-box">
+
+                        🔎
+
+                        <input type="text" id="searchProduct" placeholder="Buscar produto...">
+
+                    </div>
+
+                    <button class="primary-button chef-only" id="newProduct">
+                        + Novo produto
+                    </button>
+
+                </div>
+
+
+                <div class="stock-alert">
+
+                    <div>
+                        ⚠️
+                    </div>
+
+                    <div>
+
+                        <strong id="stockAlertText">
+                            0 produtos precisam de atenção
+                        </strong>
+
+                        <span>
+                            Verifique os itens com estoque baixo.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Produtos
+                            </h3>
+
+                            <p>
+                                Controle do estoque
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="appointments-table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Produto
+                                    </th>
+
+                                    <th>
+                                        Preço
+                                    </th>
+
+                                    <th>
+                                        Quantidade
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Ações
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="stockTable">
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= VENDAS ================= -->
+
+            <section class="page" id="vendas">
+
+                <div class="section-actions">
+
+                    <div class="search-box">
+
+                        🔎
+
+                        <input type="text" id="searchSale" placeholder="Buscar venda...">
+
+                    </div>
+
+                    <button class="primary-button" id="newSale">
+                        + Registrar venda
+                    </button>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Vendas
+                            </h3>
+
+                            <p>
+                                Histórico de vendas e serviços
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="appointments-table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Data
+                                    </th>
+
+                                    <th>
+                                        Cliente
+                                    </th>
+
+                                    <th>
+                                        Contato
+                                    </th>
+
+                                    <th>
+                                        Pet
+                                    </th>
+
+                                    <th>
+                                        Serviço
+                                    </th>
+
+                                    <th>
+                                        Valor
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="salesTable">
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- =====================================================
+     MODAL AGENDAMENTO
+===================================================== -->
+
+    <div class="modal" id="appointmentModal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2>
+                        Novo agendamento
+                    </h2>
+
+                    <p>
+                        Cadastre um novo atendimento.
+                    </p>
+
+                </div>
+
+                <button class="close-modal">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="appointmentForm">
+
+                <div class="form-grid">
+
+                    <label>
+                        Cliente
+
+                        <input type="text" id="appointmentClient" required placeholder="Nome do dono">
+
+                    </label>
+
+
+                    <label>
+                        WhatsApp
+
+                        <input type="tel" id="appointmentPhone" required placeholder="(00) 00000-0000">
+
+                    </label>
+
+
+                    <label>
+                        Pet
+
+                        <input type="text" id="appointmentPet" required placeholder="Nome do pet">
+
+                    </label>
+
+
+                    <label>
+                        Data
+
+                        <input type="date" id="formAppointmentDate" required>
+
+                    </label>
+
+
+                    <label>
+                        Horário
+
+                        <input type="time" id="appointmentTime" required>
+
+                    </label>
+
+
+                    <label>
+                        Tipo de tosa
+
+                        <select id="appointmentGroom">
+
+                            <option>
+                                Sem tosa
+                            </option>
+
+                            <option>
+                                Tosa higiênica
+                            </option>
+
+                            <option>
+                                Tosa completa
+                            </option>
+
+                            <option>
+                                Tosa na tesoura
+                            </option>
+
+                        </select>
+
+                    </label>
+
+                </div>
+
+
+                <div class="service-options">
+
+                    <label class="check-card">
+
+                        <input type="checkbox" id="appointmentBath">
+
+                        <span>
+                            🛁
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Banho
+                            </strong>
+
+                            <small>
+                                Incluir banho
+                            </small>
+
+                        </div>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input type="checkbox" id="appointmentGrooming">
+
+                        <span>
+                            ✂️
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Tosa
+                            </strong>
+
+                            <small>
+                                Incluir tosa
+                            </small>
+
+                        </div>
+
+                    </label>
+
+                </div>
+
+
+                <label class="full-label">
+
+                    Observações
+
+                    <textarea id="appointmentNotes" placeholder="Alguma observação sobre o pet..."></textarea>
+
+                </label>
+
+
+                <div class="modal-footer">
+
+                    <button type="button" class="secondary-button close-modal">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="primary-button">
+                        Criar agendamento
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+     MODAL CLIENTE
+===================================================== -->
+
+    <div class="modal" id="clientModal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2>
+                        Novo cliente
+                    </h2>
+
+                    <p>
+                        Cadastre o cliente e seu pet.
+                    </p>
+
+                </div>
+
+                <button class="close-modal">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="clientForm">
+
+                <div class="form-grid">
+
+                    <label>
+                        Nome do dono
+
+                        <input type="text" id="clientName" required>
+
+                    </label>
+
+
+                    <label>
+                        WhatsApp
+
+                        <input type="tel" id="clientPhone" required>
+
+                    </label>
+
+
+                    <label>
+                        Nome do pet
+
+                        <input type="text" id="clientPet" required>
+
+                    </label>
+
+
+                    <label>
+                        Tipo de animal
+
+                        <select id="animalType">
+
+                            <option>
+                                Cachorro
+                            </option>
+
+                            <option>
+                                Gato
+                            </option>
+
+                            <option>
+                                Outro
+                            </option>
+
+                        </select>
+
+                    </label>
+
+                </div>
+
+
+                <label class="full-label">
+
+                    Observações
+
+                    <textarea id="clientNotes"></textarea>
+
+                </label>
+
+
+                <div class="modal-footer">
+
+                    <button type="button" class="secondary-button close-modal">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="primary-button">
+                        Cadastrar cliente
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+     MODAL PRODUTO
+===================================================== -->
+
+    <div class="modal" id="productModal">
+
+        <div class="modal-box small-modal">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2>
+                        Novo produto
+                    </h2>
+
+                    <p>
+                        Área exclusiva do chefe.
+                    </p>
+
+                </div>
+
+                <button class="close-modal">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="productForm">
+
+                <label class="full-label">
+
+                    Nome do produto
+
+                    <input type="text" id="productName" required>
+
+                </label>
+
+
+                <div class="form-grid">
+
+                    <label>
+
+                        Preço
+
+                        <input type="number" id="productPrice" min="0" step="0.01" required>
+
+                    </label>
+
+
+                    <label>
+
+                        Quantidade
+
+                        <input type="number" id="productQuantity" min="0" required>
+
+                    </label>
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <button type="button" class="secondary-button close-modal">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="primary-button">
+                        Cadastrar produto
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+     TOAST
+===================================================== -->
+
+    <div class="toast" id="toast">
+
+        <span>
+            ✓
+        </span>
+
+        <p>
+            Operação realizada!
+        </p>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
