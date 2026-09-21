@@ -2,1046 +2,575 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PetCare — Sistema de Gestão</title>
-
-    <link rel="stylesheet" href="style.css">
+    <title>StartJovem | Seu futuro começa agora</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-    <!-- =====================================================
-     TELA DE LOGIN
-===================================================== -->
+    <!-- =========================================================
+         HEADER
+    ========================================================= -->
 
-    <div class="login-screen" id="loginScreen">
+    <header>
 
-        <div class="login-background-paw paw-1">🐾</div>
-        <div class="login-background-paw paw-2">🐾</div>
+        <div class="logo" onclick="navegar('home')">
 
-        <div class="login-card">
+            <i class="fa-solid fa-rocket"></i>
 
-            <div class="login-logo">
-                <div class="login-logo-icon">
-                    🐾
+            StartJovem
+
+        </div>
+
+        <nav>
+
+            <ul>
+
+                <li>
+                    <a id="menu-home" class="active-menu" onclick="navegar('home')">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Início</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a id="menu-vagas" onclick="navegar('vagas')">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <span>Vagas</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a id="menu-cursos" onclick="navegar('cursos')">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Cursos</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a id="menu-candidaturas" onclick="navegar('candidaturas')">
+                        <i class="fa-solid fa-file-signature"></i>
+                        <span>Candidaturas</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a id="menu-curriculo" onclick="navegar('curriculo')">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <span>Currículo</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a id="menu-perfil" onclick="navegar('perfil')">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Perfil</span>
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+        <div class="header-actions">
+
+            <button class="icon-btn" onclick="alternarTema()" title="Alternar tema">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </button>
+
+            <button class="icon-btn" onclick="toggleNotificacoes()" title="Notificações">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <span class="notification-dot"></span>
+
+            </button>
+
+            <div class="profile-mini" onclick="navegar('perfil')">
+
+                <div class="avatar">
+                    LS
                 </div>
 
-                <div>
-                    <strong>PetCare</strong>
-                    <span>Pet Shop</span>
-                </div>
-            </div>
-
-
-            <div class="login-title">
-                <h1>Bem-vindo de volta!</h1>
-                <p>Entre na sua conta para acessar o sistema.</p>
-            </div>
-
-
-            <form id="loginForm">
-
-                <label class="login-label">
-                    Usuário
-
-                    <div class="login-input">
-                        <span>👤</span>
-
-                        <input type="text" id="loginUser" placeholder="Digite seu usuário" autocomplete="username"
-                            required>
-                    </div>
-                </label>
-
-
-                <label class="login-label">
-                    Senha
-
-                    <div class="login-input">
-                        <span>🔒</span>
-
-                        <input type="password" id="loginPassword" placeholder="Digite sua senha"
-                            autocomplete="current-password" required>
-
-                        <button type="button" id="showPassword" class="password-toggle">
-                            👁
-                        </button>
-                    </div>
-                </label>
-
-
-                <div class="login-options">
-
-                    <label class="remember">
-                        <input type="checkbox" id="rememberUser">
-                        <span>Lembrar usuário</span>
-                    </label>
-
-                    <button type="button" class="forgot-password" id="forgotPassword">
-                        Esqueci minha senha
-                    </button>
-
-                </div>
-
-
-                <button class="login-button" type="submit">
-                    Entrar no sistema
-                    <span>→</span>
-                </button>
-
-                <div class="login-error" id="loginError">
-                    Usuário ou senha incorretos.
-                </div>
-
-            </form>
-
-
-            <div class="login-demo">
-
-                <strong>🔑 Acesso para teste</strong>
-
-                <div>
-                    <span>Chefe</span>
-                    <code>chefe / 1234</code>
-                </div>
-
-                <div>
-                    <span>Funcionário</span>
-                    <code>funcionario / 1234</code>
-                </div>
+                <span>Lucas</span>
 
             </div>
 
+        </div>
 
-            <div class="login-footer">
-                <span>🐾</span>
-                Sistema de gestão para Pet Shop
+    </header>
+
+    <!-- =========================================================
+         NOTIFICAÇÕES
+    ========================================================= -->
+
+    <div class="notification-panel" id="notification-panel">
+
+        <div class="notification-header">
+
+            <strong>Notificações</strong>
+
+            <button class="icon-btn" style="width:30px;height:30px;" onclick="toggleNotificacoes()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div class="notification" onclick="navegar('candidaturas');toggleNotificacoes()">
+
+            <div class="notification-icon">
+                <i class="fa-solid fa-file-circle-check"></i>
+            </div>
+
+            <div>
+
+                <p>
+                    Sua candidatura está em análise.
+                </p>
+
+                <small>
+                    Assistente Administrativo
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="notification" onclick="navegar('cursos');toggleNotificacoes()">
+
+            <div class="notification-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+
+            <div>
+
+                <p>
+                    Novo curso disponível para você.
+                </p>
+
+                <small>
+                    JavaScript e Algoritmos
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="notification">
+
+            <div class="notification-icon">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+
+            <div>
+
+                <p>
+                    Você está próximo de conquistar uma nova medalha!
+                </p>
+
+                <small>
+                    Continue seus cursos.
+                </small>
+
             </div>
 
         </div>
 
     </div>
 
+    <!-- =========================================================
+         HOME
+    ========================================================= -->
 
-    <!-- =====================================================
-     SISTEMA PRINCIPAL
-===================================================== -->
+    <div id="page-home" class="page active">
 
-    <div class="app" id="mainApp">
+        <section class="hero">
 
-        <!-- SIDEBAR -->
+            <div class="hero-content">
 
-        <aside class="sidebar">
+                <div class="hero-tag">
 
-            <div class="logo">
+                    <i class="fa-solid fa-sparkles"></i>
 
-                <div class="logo-icon">
-                    🐾
+                    Plataforma gratuita para jovens
+
                 </div>
 
-                <div>
-                    <strong>PetCare</strong>
-                    <span>Pet Shop</span>
-                </div>
+                <h1>
+                    Seu futuro profissional
+                    <span>começa agora.</span>
+                </h1>
 
-            </div>
+                <p>
+                    Encontre oportunidades, desenvolva novas habilidades,
+                    crie seu currículo e acompanhe sua evolução em um
+                    único lugar.
+                </p>
 
+                <div class="hero-actions">
 
-            <nav>
+                    <button class="btn btn-white" onclick="navegar('vagas')">
 
-                <button class="menu-item active" data-page="dashboard">
-                    <span>⌂</span>
-                    Dashboard
-                </button>
+                        <i class="fa-solid fa-magnifying-glass"></i>
 
-                <button class="menu-item" data-page="agendamentos">
-                    <span>📅</span>
-                    Agendamentos
-                </button>
+                        Encontrar oportunidades
 
-                <button class="menu-item" data-page="clientes">
-                    <span>🐶</span>
-                    Clientes & Pets
-                </button>
+                    </button>
 
-                <button class="menu-item" data-page="financeiro">
-                    <span>💰</span>
-                    Financeiro
-                </button>
+                    <button class="btn"
+                        style="background:rgba(255,255,255,.12);color:white;border:1px solid rgba(255,255,255,.25)"
+                        onclick="navegar('curriculo')">
 
-                <button class="menu-item" data-page="estoque">
-                    <span>📦</span>
-                    Estoque
-                </button>
+                        <i class="fa-solid fa-file-lines"></i>
 
-                <button class="menu-item" data-page="vendas">
-                    <span>🧾</span>
-                    Vendas
-                </button>
+                        Criar currículo
 
-            </nav>
-
-
-            <div class="sidebar-bottom">
-
-                <div class="user-box">
-
-                    <div class="avatar" id="userAvatar">
-                        C
-                    </div>
-
-                    <div>
-
-                        <strong id="loggedUser">
-                            Chefe
-                        </strong>
-
-                        <small id="loggedRole">
-                            Administrador
-                        </small>
-
-                    </div>
-
-                    <button class="logout-button" id="logoutButton" title="Sair">
-                        ⇥
                     </button>
 
                 </div>
 
             </div>
 
-        </aside>
+            <div class="hero-shape"></div>
 
+        </section>
 
-        <!-- MAIN -->
+        <main class="container">
 
-        <main class="main">
-
-            <header class="topbar">
+            <div class="welcome-card">
 
                 <div>
 
-                    <h1 id="pageTitle">
-                        Dashboard
-                    </h1>
+                    <h2>
+                        Olá, Lucas! 👋
+                    </h2>
 
-                    <p id="pageSubtitle">
-                        Visão geral do seu Pet Shop
+                    <p>
+                        Continue sua jornada. Você já está construindo
+                        seu próximo passo profissional.
                     </p>
 
                 </div>
 
+                <div class="progress-mini">
 
-                <div class="top-actions">
+                    <div class="progress-info">
 
-                    <button class="icon-button" title="Notificações">
-                        🔔
-                        <i></i>
-                    </button>
+                        <span>
+                            Perfil completo
+                        </span>
 
-                    <button class="primary-button" id="quickAppointment">
-                        + Novo agendamento
-                    </button>
+                        <strong>
+                            75%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <span style="width:75%"></span>
+
+                    </div>
 
                 </div>
 
-            </header>
+            </div>
 
+            <div class="stats-grid">
 
-            <!-- ================= DASHBOARD ================= -->
+                <div class="stat-card">
 
-            <section class="page active-page" id="dashboard">
-
-                <div class="welcome">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
 
                     <div>
 
-                        <span>
-                            Bom dia! 👋
-                        </span>
+                        <strong id="stat-vagas">
+                            12
+                        </strong>
+
+                        <small>
+                            Vagas compatíveis
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+
+                    <div>
+
+                        <strong id="stat-candidaturas">
+                            3
+                        </strong>
+
+                        <small>
+                            Candidaturas
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            2
+                        </strong>
+
+                        <small>
+                            Cursos ativos
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            4
+                        </strong>
+
+                        <small>
+                            Conquistas
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <section>
+
+                <div class="section-header">
+
+                    <div class="section-title">
 
                         <h2>
-                            Como está o movimento hoje?
+                            Oportunidades para você
                         </h2>
 
                         <p>
-                            Acompanhe os principais números do seu Pet Shop.
+                            Vagas selecionadas para quem está começando.
                         </p>
 
                     </div>
 
-                    <div class="welcome-paw">
-                        🐾
-                    </div>
+                    <a class="section-link" onclick="navegar('vagas')">
+                        Ver todas
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
 
                 </div>
 
+                <div class="grid">
 
-                <div class="stats-grid">
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon green">
-                            💰
-                        </div>
+                    <article class="card">
 
                         <div>
 
-                            <span>
-                                Faturamento hoje
-                            </span>
+                            <div class="card-top">
 
-                            <strong id="dashToday">
-                                R$ 0,00
-                            </strong>
+                                <span class="badge badge-aprendiz">
+                                    Jovem Aprendiz
+                                </span>
 
-                            <small class="positive">
-                                ↑ 12,5% este mês
-                            </small>
+                                <button class="favorite" onclick="favoritar(this)">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button>
 
-                        </div>
+                            </div>
 
-                    </div>
+                            <h3>
+                                Assistente Administrativo Júnior
+                            </h3>
 
+                            <p class="company">
+                                <i class="fa-solid fa-building"></i>
+                                Banco Itaú Unibanco
+                            </p>
 
-                    <div class="stat-card">
-
-                        <div class="stat-icon blue">
-                            📈
-                        </div>
-
-                        <div>
-
-                            <span>
-                                Faturamento mensal
-                            </span>
-
-                            <strong id="dashMonth">
-                                R$ 0,00
-                            </strong>
-
-                            <small class="positive">
-                                ↑ 8,2% comparado ao mês anterior
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon purple">
-                            📊
-                        </div>
-
-                        <div>
-
-                            <span>
-                                Faturamento anual
-                            </span>
-
-                            <strong id="dashYear">
-                                R$ 0,00
-                            </strong>
-
-                            <small>
-                                Acumulado no ano
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon orange">
-                            📅
-                        </div>
-
-                        <div>
-
-                            <span>
-                                Agendamentos hoje
-                            </span>
-
-                            <strong id="dashAppointments">
-                                0
-                            </strong>
-
-                            <small>
-                                Atendimentos programados
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="dashboard-grid">
-
-                    <div class="panel chart-panel">
-
-                        <div class="panel-header">
-
-                            <div>
-
-                                <h3>
-                                    Movimento financeiro
-                                </h3>
+                            <div class="card-details">
 
                                 <p>
-                                    Faturamento dos últimos 7 dias
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    São Paulo - SP
+                                </p>
+
+                                <p>
+                                    <i class="fa-solid fa-money-bill"></i>
+                                    R$ 1.100,00 + VT
+                                </p>
+
+                                <p>
+                                    <i class="fa-solid fa-clock"></i>
+                                    Híbrido
                                 </p>
 
                             </div>
 
-                            <select id="chartPeriod">
-
-                                <option>
-                                    Últimos 7 dias
-                                </option>
-
-                                <option>
-                                    Últimos 30 dias
-                                </option>
-
-                            </select>
-
                         </div>
 
-
-                        <div class="chart-container">
-
-                            <canvas id="financeChart"></canvas>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="panel">
-
-                        <div class="panel-header">
-
-                            <div>
-
-                                <h3>
-                                    Próximos atendimentos
-                                </h3>
-
-                                <p>
-                                    Agenda de hoje
-                                </p>
-
-                            </div>
-
-                            <button class="text-button" data-page-link="agendamentos">
-                                Ver agenda
-                            </button>
-
-                        </div>
-
-
-                        <div class="appointment-list" id="dashboardAppointments">
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <div class="panel-header">
-
-                        <div>
-
-                            <h3>
-                                Resumo rápido
-                            </h3>
-
-                            <p>
-                                Informações importantes do dia
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="quick-grid">
-
-                        <div class="quick-item">
-
-                            <span class="quick-emoji">
-                                🛁
-                            </span>
-
-                            <div>
-
-                                <strong id="totalBaths">
-                                    0
-                                </strong>
-
-                                <small>
-                                    Banhos hoje
-                                </small>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="quick-item">
-
-                            <span class="quick-emoji">
-                                ✂️
-                            </span>
-
-                            <div>
-
-                                <strong id="totalGrooms">
-                                    0
-                                </strong>
-
-                                <small>
-                                    Tosas hoje
-                                </small>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="quick-item">
-
-                            <span class="quick-emoji">
-                                🐾
-                            </span>
-
-                            <div>
-
-                                <strong id="totalPets">
-                                    0
-                                </strong>
-
-                                <small>
-                                    Pets cadastrados
-                                </small>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="quick-item">
-
-                            <span class="quick-emoji">
-                                📦
-                            </span>
-
-                            <div>
-
-                                <strong id="lowStock">
-                                    0
-                                </strong>
-
-                                <small>
-                                    Produtos com estoque baixo
-                                </small>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- ================= AGENDAMENTOS ================= -->
-
-            <section class="page" id="agendamentos">
-
-                <div class="section-actions">
-
-                    <div class="search-box">
-
-                        🔎
-
-                        <input type="text" id="searchAppointment" placeholder="Buscar cliente ou pet...">
-
-                    </div>
-
-                    <input type="date" id="appointmentDate">
-
-                    <button class="primary-button" id="newAppointment">
-                        + Novo agendamento
-                    </button>
-
-                </div>
-
-
-                <div class="appointment-board">
-
-                    <div class="board-header">
-
-                        <div>
-
-                            <h3>
-                                Agenda
-                            </h3>
-
-                            <p>
-                                Atendimentos programados
-                            </p>
-
-                        </div>
-
-
-                        <div class="status-filter">
-
-                            <button class="filter-btn active" data-filter="all">
-                                Todos
-                            </button>
-
-                            <button class="filter-btn" data-filter="Agendado">
-                                Agendados
-                            </button>
-
-                            <button class="filter-btn" data-filter="Em atendimento">
-                                Em atendimento
-                            </button>
-
-                            <button class="filter-btn" data-filter="Finalizado">
-                                Finalizados
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="appointments-table-wrapper">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        Horário
-                                    </th>
-
-                                    <th>
-                                        Cliente
-                                    </th>
-
-                                    <th>
-                                        Pet
-                                    </th>
-
-                                    <th>
-                                        Serviço
-                                    </th>
-
-                                    <th>
-                                        Status
-                                    </th>
-
-                                    <th>
-                                        Ações
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-
-                            <tbody id="appointmentsTable">
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- ================= CLIENTES ================= -->
-
-            <section class="page" id="clientes">
-
-                <div class="section-actions">
-
-                    <div class="search-box">
-
-                        🔎
-
-                        <input type="text" id="searchClient" placeholder="Buscar cliente ou pet...">
-
-                    </div>
-
-                    <button class="primary-button" id="newClient">
-                        + Novo cliente
-                    </button>
-
-                </div>
-
-
-                <div class="clients-grid" id="clientsGrid">
-                </div>
-
-            </section>
-
-
-            <!-- ================= FINANCEIRO ================= -->
-
-            <section class="page" id="financeiro">
-
-                <div class="finance-periods">
-
-                    <button class="period-btn active">
-                        Hoje
-                    </button>
-
-                    <button class="period-btn">
-                        Este mês
-                    </button>
-
-                    <button class="period-btn">
-                        Este ano
-                    </button>
-
-                </div>
-
-
-                <div class="finance-cards">
-
-                    <div class="finance-card">
-
-                        <span>
-                            Receita
-                        </span>
-
-                        <strong id="financeRevenue">
-                            R$ 0,00
-                        </strong>
-
-                        <small>
-                            Vendas e serviços
-                        </small>
-
-                    </div>
-
-
-                    <div class="finance-card">
-
-                        <span>
-                            Serviços
-                        </span>
-
-                        <strong id="financeServices">
-                            0
-                        </strong>
-
-                        <small>
-                            Atendimentos realizados
-                        </small>
-
-                    </div>
-
-
-                    <div class="finance-card">
-
-                        <span>
-                            Ticket médio
-                        </span>
-
-                        <strong id="financeTicket">
-                            R$ 0,00
-                        </strong>
-
-                        <small>
-                            Média por atendimento
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <div class="panel-header">
-
-                        <div>
-
-                            <h3>
-                                Movimentações
-                            </h3>
-
-                            <p>
-                                Histórico financeiro
-                            </p>
-
-                        </div>
-
-                        <button class="secondary-button" id="exportSales">
-                            ⬇ Exportar
+                        <button class="btn btn-primary" onclick="verVaga(
+                                'Assistente Administrativo Júnior',
+                                'Banco Itaú Unibanco',
+                                'São Paulo - SP',
+                                'R$ 1.100,00 + VT'
+                            )">
+                            Ver oportunidade
+                            <i class="fa-solid fa-arrow-right"></i>
                         </button>
 
-                    </div>
+                    </article>
 
-
-                    <div class="appointments-table-wrapper">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        Data
-                                    </th>
-
-                                    <th>
-                                        Cliente
-                                    </th>
-
-                                    <th>
-                                        Pet
-                                    </th>
-
-                                    <th>
-                                        Serviço
-                                    </th>
-
-                                    <th>
-                                        Valor
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody id="financeTable">
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- ================= ESTOQUE ================= -->
-
-            <section class="page" id="estoque">
-
-                <div class="section-actions">
-
-                    <div class="search-box">
-
-                        🔎
-
-                        <input type="text" id="searchProduct" placeholder="Buscar produto...">
-
-                    </div>
-
-                    <button class="primary-button chef-only" id="newProduct">
-                        + Novo produto
-                    </button>
-
-                </div>
-
-
-                <div class="stock-alert">
-
-                    <div>
-                        ⚠️
-                    </div>
-
-                    <div>
-
-                        <strong id="stockAlertText">
-                            0 produtos precisam de atenção
-                        </strong>
-
-                        <span>
-                            Verifique os itens com estoque baixo.
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <div class="panel-header">
+                    <article class="card">
 
                         <div>
 
+                            <div class="card-top">
+
+                                <span class="badge badge-estagio">
+                                    Estágio
+                                </span>
+
+                                <button class="favorite" onclick="favoritar(this)">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button>
+
+                            </div>
+
                             <h3>
-                                Produtos
+                                Técnico em Suporte de TI
                             </h3>
 
-                            <p>
-                                Controle do estoque
+                            <p class="company">
+                                <i class="fa-solid fa-building"></i>
+                                Localiza Labs
                             </p>
+
+                            <div class="card-details">
+
+                                <p>
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    Belo Horizonte - MG
+                                </p>
+
+                                <p>
+                                    <i class="fa-solid fa-money-bill"></i>
+                                    R$ 1.300,00
+                                </p>
+
+                                <p>
+                                    <i class="fa-solid fa-clock"></i>
+                                    Presencial
+                                </p>
+
+                            </div>
 
                         </div>
 
-                    </div>
+                        <button class="btn btn-primary" onclick="verVaga(
+                                'Técnico em Suporte de TI',
+                                'Localiza Labs',
+                                'Belo Horizonte - MG',
+                                'R$ 1.300,00'
+                            )">
+                            Ver oportunidade
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
 
+                    </article>
 
-                    <div class="appointments-table-wrapper">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        Produto
-                                    </th>
-
-                                    <th>
-                                        Preço
-                                    </th>
-
-                                    <th>
-                                        Quantidade
-                                    </th>
-
-                                    <th>
-                                        Status
-                                    </th>
-
-                                    <th>
-                                        Ações
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody id="stockTable">
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- ================= VENDAS ================= -->
-
-            <section class="page" id="vendas">
-
-                <div class="section-actions">
-
-                    <div class="search-box">
-
-                        🔎
-
-                        <input type="text" id="searchSale" placeholder="Buscar venda...">
-
-                    </div>
-
-                    <button class="primary-button" id="newSale">
-                        + Registrar venda
-                    </button>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <div class="panel-header">
+                    <article class="card">
 
                         <div>
 
+                            <div class="card-top">
+
+                                <span class="badge badge-aprendiz">
+                                    Jovem Aprendiz
+                                </span>
+
+                                <button class="favorite" onclick="favoritar(this)">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button>
+
+                            </div>
+
                             <h3>
-                                Vendas
+                                Operador de Atendimento Comercial
                             </h3>
 
-                            <p>
-                                Histórico de vendas e serviços
+                            <p class="company">
+                                <i class="fa-solid fa-building"></i>
+                                Magazine Luiza
                             </p>
+
+                            <div class="card-details">
+
+                                <p>
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    Rio de Janeiro - RJ
+                                </p>
+
+                                <p>
+                                    <i class="fa-solid fa-money-bill"></i>
+                                    R$ 980,00
+                                </p>
+
+                                <p>
+                                    <i class="fa-solid fa-clock"></i>
+                                    Presencial
+                                </p>
+
+                            </div>
 
                         </div>
 
-                    </div>
+                        <button class="btn btn-primary" onclick="verVaga(
+                                'Operador de Atendimento Comercial',
+                                'Magazine Luiza',
+                                'Rio de Janeiro - RJ',
+                                'R$ 980,00'
+                            )">
+                            Ver oportunidade
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
 
-
-                    <div class="appointments-table-wrapper">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        Data
-                                    </th>
-
-                                    <th>
-                                        Cliente
-                                    </th>
-
-                                    <th>
-                                        Contato
-                                    </th>
-
-                                    <th>
-                                        Pet
-                                    </th>
-
-                                    <th>
-                                        Serviço
-                                    </th>
-
-                                    <th>
-                                        Valor
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody id="salesTable">
-                            </tbody>
-
-                        </table>
-
-                    </div>
+                    </article>
 
                 </div>
 
@@ -1051,395 +580,1383 @@
 
     </div>
 
+    <!-- =========================================================
+         VAGAS
+    ========================================================= -->
 
-    <!-- =====================================================
-     MODAL AGENDAMENTO
-===================================================== -->
+    <div id="page-vagas" class="page">
 
-    <div class="modal" id="appointmentModal">
+        <main class="container">
 
-        <div class="modal-box">
+            <div class="section-header">
 
-            <div class="modal-header">
-
-                <div>
+                <div class="section-title">
 
                     <h2>
-                        Novo agendamento
+                        Mural de oportunidades
                     </h2>
 
                     <p>
-                        Cadastre um novo atendimento.
+                        Encontre vagas de acordo com seus interesses.
                     </p>
 
                 </div>
 
-                <button class="close-modal">
-                    ×
+                <span id="contador-vagas" style="color:var(--gray);font-size:.85rem;">
+                    6 oportunidades
+                </span>
+
+            </div>
+
+            <div class="search-panel">
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input id="busca-vaga" type="text" placeholder="Cargo, empresa ou palavra-chave..."
+                        oninput="filtrarVagas()">
+
+                </div>
+
+                <select id="filtro-tipo" onchange="filtrarVagas()">
+
+                    <option value="">
+                        Todos os tipos
+                    </option>
+
+                    <option value="aprendiz">
+                        Jovem Aprendiz
+                    </option>
+
+                    <option value="estagio">
+                        Estágio
+                    </option>
+
+                </select>
+
+                <select id="filtro-local" onchange="filtrarVagas()">
+
+                    <option value="">
+                        Todas as localidades
+                    </option>
+
+                    <option value="São Paulo">
+                        São Paulo
+                    </option>
+
+                    <option value="Belo Horizonte">
+                        Belo Horizonte
+                    </option>
+
+                    <option value="Rio de Janeiro">
+                        Rio de Janeiro
+                    </option>
+
+                    <option value="Recife">
+                        Recife
+                    </option>
+
+                </select>
+
+                <button class="btn btn-primary" onclick="limparFiltros()">
+                    Limpar
                 </button>
 
             </div>
 
+            <div class="grid" id="lista-vagas">
 
-            <form id="appointmentForm">
+                <article class="card vaga-card" data-tipo="aprendiz" data-local="São Paulo"
+                    data-search="assistente administrativo itaú banco">
 
-                <div class="form-grid">
+                    <div>
 
-                    <label>
-                        Cliente
+                        <div class="card-top">
 
-                        <input type="text" id="appointmentClient" required placeholder="Nome do dono">
+                            <span class="badge badge-aprendiz">
+                                Jovem Aprendiz
+                            </span>
 
-                    </label>
+                            <button class="favorite" onclick="favoritar(this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
 
+                        </div>
 
-                    <label>
-                        WhatsApp
+                        <h3>
+                            Assistente Administrativo Júnior
+                        </h3>
 
-                        <input type="tel" id="appointmentPhone" required placeholder="(00) 00000-0000">
+                        <p class="company">
+                            Banco Itaú Unibanco
+                        </p>
 
-                    </label>
+                        <div class="card-details">
 
+                            <p>
+                                <i class="fa-solid fa-location-dot"></i>
+                                São Paulo - SP
+                            </p>
 
-                    <label>
-                        Pet
+                            <p>
+                                <i class="fa-solid fa-money-bill"></i>
+                                R$ 1.100,00 + VT
+                            </p>
 
-                        <input type="text" id="appointmentPet" required placeholder="Nome do pet">
+                        </div>
 
-                    </label>
+                    </div>
 
+                    <button class="btn btn-primary" onclick="verVaga(
+                            'Assistente Administrativo Júnior',
+                            'Banco Itaú Unibanco',
+                            'São Paulo - SP',
+                            'R$ 1.100,00 + VT'
+                        )">
+                        Visualizar
+                    </button>
 
-                    <label>
-                        Data
+                </article>
 
-                        <input type="date" id="formAppointmentDate" required>
+                <article class="card vaga-card" data-tipo="estagio" data-local="Belo Horizonte"
+                    data-search="suporte ti tecnologia localiza">
 
-                    </label>
+                    <div>
 
+                        <div class="card-top">
 
-                    <label>
-                        Horário
+                            <span class="badge badge-estagio">
+                                Estágio
+                            </span>
 
-                        <input type="time" id="appointmentTime" required>
+                            <button class="favorite" onclick="favoritar(this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
 
-                    </label>
+                        </div>
 
+                        <h3>
+                            Técnico em Suporte de TI
+                        </h3>
 
-                    <label>
-                        Tipo de tosa
+                        <p class="company">
+                            Localiza Labs
+                        </p>
 
-                        <select id="appointmentGroom">
+                        <div class="card-details">
+
+                            <p>
+                                <i class="fa-solid fa-location-dot"></i>
+                                Belo Horizonte - MG
+                            </p>
+
+                            <p>
+                                <i class="fa-solid fa-money-bill"></i>
+                                R$ 1.300,00
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-primary" onclick="verVaga(
+                            'Técnico em Suporte de TI',
+                            'Localiza Labs',
+                            'Belo Horizonte - MG',
+                            'R$ 1.300,00'
+                        )">
+                        Visualizar
+                    </button>
+
+                </article>
+
+                <article class="card vaga-card" data-tipo="aprendiz" data-local="Rio de Janeiro"
+                    data-search="operador atendimento comercial magazine luiza">
+
+                    <div>
+
+                        <div class="card-top">
+
+                            <span class="badge badge-aprendiz">
+                                Jovem Aprendiz
+                            </span>
+
+                            <button class="favorite" onclick="favoritar(this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+
+                        </div>
+
+                        <h3>
+                            Operador de Atendimento Comercial
+                        </h3>
+
+                        <p class="company">
+                            Magazine Luiza
+                        </p>
+
+                        <div class="card-details">
+
+                            <p>
+                                <i class="fa-solid fa-location-dot"></i>
+                                Rio de Janeiro - RJ
+                            </p>
+
+                            <p>
+                                <i class="fa-solid fa-money-bill"></i>
+                                R$ 980,00
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-primary" onclick="verVaga(
+                            'Operador de Atendimento Comercial',
+                            'Magazine Luiza',
+                            'Rio de Janeiro - RJ',
+                            'R$ 980,00'
+                        )">
+                        Visualizar
+                    </button>
+
+                </article>
+
+                <article class="card vaga-card" data-tipo="estagio" data-local="Recife"
+                    data-search="desenvolvedor web programação javascript">
+
+                    <div>
+
+                        <div class="card-top">
+
+                            <span class="badge badge-estagio">
+                                Estágio
+                            </span>
+
+                            <button class="favorite" onclick="favoritar(this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+
+                        </div>
+
+                        <h3>
+                            Estagiário de Desenvolvimento Web
+                        </h3>
+
+                        <p class="company">
+                            Tech Nordeste
+                        </p>
+
+                        <div class="card-details">
+
+                            <p>
+                                <i class="fa-solid fa-location-dot"></i>
+                                Recife - PE
+                            </p>
+
+                            <p>
+                                <i class="fa-solid fa-money-bill"></i>
+                                R$ 1.450,00
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-primary" onclick="verVaga(
+                            'Estagiário de Desenvolvimento Web',
+                            'Tech Nordeste',
+                            'Recife - PE',
+                            'R$ 1.450,00'
+                        )">
+                        Visualizar
+                    </button>
+
+                </article>
+
+                <article class="card vaga-card" data-tipo="aprendiz" data-local="São Paulo"
+                    data-search="marketing social media aprendiz">
+
+                    <div>
+
+                        <div class="card-top">
+
+                            <span class="badge badge-aprendiz">
+                                Jovem Aprendiz
+                            </span>
+
+                            <button class="favorite" onclick="favoritar(this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+
+                        </div>
+
+                        <h3>
+                            Assistente de Marketing
+                        </h3>
+
+                        <p class="company">
+                            Agência Criativa
+                        </p>
+
+                        <div class="card-details">
+
+                            <p>
+                                <i class="fa-solid fa-location-dot"></i>
+                                São Paulo - SP
+                            </p>
+
+                            <p>
+                                <i class="fa-solid fa-money-bill"></i>
+                                R$ 1.050,00
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-primary" onclick="verVaga(
+                            'Assistente de Marketing',
+                            'Agência Criativa',
+                            'São Paulo - SP',
+                            'R$ 1.050,00'
+                        )">
+                        Visualizar
+                    </button>
+
+                </article>
+
+                <article class="card vaga-card" data-tipo="estagio" data-local="Recife"
+                    data-search="designer ux ui design">
+
+                    <div>
+
+                        <div class="card-top">
+
+                            <span class="badge badge-estagio">
+                                Estágio
+                            </span>
+
+                            <button class="favorite" onclick="favoritar(this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+
+                        </div>
+
+                        <h3>
+                            Estagiário de UX/UI Design
+                        </h3>
+
+                        <p class="company">
+                            Studio Digital
+                        </p>
+
+                        <div class="card-details">
+
+                            <p>
+                                <i class="fa-solid fa-location-dot"></i>
+                                Recife - PE
+                            </p>
+
+                            <p>
+                                <i class="fa-solid fa-money-bill"></i>
+                                R$ 1.250,00
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-primary" onclick="verVaga(
+                            'Estagiário de UX/UI Design',
+                            'Studio Digital',
+                            'Recife - PE',
+                            'R$ 1.250,00'
+                        )">
+                        Visualizar
+                    </button>
+
+                </article>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- =========================================================
+         DETALHE DA VAGA
+    ========================================================= -->
+
+    <div id="page-vaga-detalhe" class="page">
+
+        <main class="container">
+
+            <button class="btn" onclick="navegar('vagas')" style="margin-bottom:20px;">
+                <i class="fa-solid fa-arrow-left"></i>
+                Voltar para vagas
+            </button>
+
+            <section class="vaga-detalhe-box">
+
+                <div class="vaga-header">
+
+                    <div>
+
+                        <span class="badge badge-estagio">
+                            Inscrições abertas
+                        </span>
+
+                        <h2 id="detalhe-vaga-titulo">
+                            Título da vaga
+                        </h2>
+
+                        <p id="detalhe-vaga-empresa">
+                            Empresa
+                        </p>
+
+                    </div>
+
+                    <button class="btn btn-primary" onclick="candidatar()">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Candidatar-se
+                    </button>
+
+                </div>
+
+                <div class="vaga-info-grid">
+
+                    <div class="info-box">
+
+                        <small>
+                            Local
+                        </small>
+
+                        <strong id="detalhe-vaga-local">
+                            -
+                        </strong>
+
+                    </div>
+
+                    <div class="info-box">
+
+                        <small>
+                            Remuneração
+                        </small>
+
+                        <strong id="detalhe-vaga-salario">
+                            -
+                        </strong>
+
+                    </div>
+
+                    <div class="info-box">
+
+                        <small>
+                            Modalidade
+                        </small>
+
+                        <strong>
+                            A definir pela empresa
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <div class="vaga-conteudo">
+
+                    <h3>
+                        <i class="fa-solid fa-circle-info"></i>
+                        Sobre a oportunidade
+                    </h3>
+
+                    <p>
+                        Esta oportunidade foi cadastrada para jovens
+                        que desejam iniciar ou desenvolver sua experiência
+                        profissional.
+                    </p>
+
+                    <h3>
+                        <i class="fa-solid fa-list-check"></i>
+                        Atividades
+                    </h3>
+
+                    <ul>
+
+                        <li>
+                            Apoio às atividades administrativas.
+                        </li>
+
+                        <li>
+                            Organização de documentos e informações.
+                        </li>
+
+                        <li>
+                            Utilização de ferramentas digitais.
+                        </li>
+
+                        <li>
+                            Atendimento e suporte à equipe.
+                        </li>
+
+                    </ul>
+
+                    <h3>
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        Requisitos
+                    </h3>
+
+                    <ul>
+
+                        <li>
+                            Estar estudando ou ter formação compatível.
+                        </li>
+
+                        <li>
+                            Interesse em desenvolvimento profissional.
+                        </li>
+
+                        <li>
+                            Conhecimentos básicos de informática.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- =========================================================
+         CURSOS
+    ========================================================= -->
+
+    <div id="page-cursos" class="page">
+
+        <main class="container">
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <h2>
+                        Centro de capacitação
+                    </h2>
+
+                    <p>
+                        Aprenda novas habilidades gratuitamente.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="grid">
+
+                <article class="card">
+
+                    <div>
+
+                        <span class="badge badge-curso">
+                            Tecnologia
+                        </span>
+
+                        <h3>
+                            Desenvolvimento Web
+                        </h3>
+
+                        <p class="company">
+                            StartJovem Academy
+                        </p>
+
+                        <div class="card-details">
+
+                            <p>
+                                <i class="fa-solid fa-clock"></i>
+                                20 horas
+                            </p>
+
+                            <p>
+                                <i class="fa-solid fa-certificate"></i>
+                                Certificado
+                            </p>
+
+                        </div>
+
+                        <div class="course-progress">
+
+                            <div class="course-progress-top">
+
+                                <span>
+                                    Progresso
+                                </span>
+
+                                <strong>
+                                    65%
+                                </strong>
+
+                            </div>
+
+                            <div class="progress-bar">
+
+                                <span style="width:65%"></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="verCurso(
+                            'Desenvolvimento Web',
+                            'StartJovem Academy'
+                        )">
+                        Continuar curso
+                    </button>
+
+                </article>
+
+                <article class="card">
+
+                    <div>
+
+                        <span class="badge badge-curso">
+                            Gestão
+                        </span>
+
+                        <h3>
+                            Excel para o mercado de trabalho
+                        </h3>
+
+                        <p class="company">
+                            Fundação Bradesco Virtual
+                        </p>
+
+                        <div class="card-details">
+
+                            <p>
+                                <i class="fa-solid fa-clock"></i>
+                                15 horas
+                            </p>
+
+                            <p>
+                                <i class="fa-solid fa-certificate"></i>
+                                Certificado
+                            </p>
+
+                        </div>
+
+                        <div class="course-progress">
+
+                            <div class="course-progress-top">
+
+                                <span>
+                                    Progresso
+                                </span>
+
+                                <strong>
+                                    25%
+                                </strong>
+
+                            </div>
+
+                            <div class="progress-bar">
+
+                                <span style="width:25%"></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="verCurso(
+                            'Excel para o mercado de trabalho',
+                            'Fundação Bradesco Virtual'
+                        )">
+                        Continuar curso
+                    </button>
+
+                </article>
+
+                <article class="card">
+
+                    <div>
+
+                        <span class="badge badge-curso">
+                            Carreira
+                        </span>
+
+                        <h3>
+                            Comunicação profissional
+                        </h3>
+
+                        <p class="company">
+                            StartJovem Academy
+                        </p>
+
+                        <div class="card-details">
+
+                            <p>
+                                <i class="fa-solid fa-clock"></i>
+                                8 horas
+                            </p>
+
+                            <p>
+                                <i class="fa-solid fa-certificate"></i>
+                                Certificado
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="verCurso(
+                            'Comunicação profissional',
+                            'StartJovem Academy'
+                        )">
+                        Começar curso
+                    </button>
+
+                </article>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- =========================================================
+         PLAYER
+    ========================================================= -->
+
+    <div id="page-curso-player" class="page">
+
+        <main class="container">
+
+            <button class="btn" onclick="navegar('cursos')" style="margin-bottom:20px;">
+                <i class="fa-solid fa-arrow-left"></i>
+                Voltar aos cursos
+            </button>
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <h2 id="player-curso-titulo">
+                        Nome do curso
+                    </h2>
+
+                    <p id="player-curso-escola">
+                        Instituição
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="curso-container">
+
+                <div>
+
+                    <div class="video-player" onclick="aulaConcluida()">
+
+                        <i class="fa-solid fa-circle-play"></i>
+
+                        <p>
+                            Clique para iniciar a aula
+                        </p>
+
+                    </div>
+
+                    <div style="
+                        background:var(--white);
+                        border:1px solid var(--border);
+                        border-radius:16px;
+                        padding:20px;
+                        margin-top:15px;
+                        ">
+
+                        <strong>
+                            Progresso do curso
+                        </strong>
+
+                        <div class="progress-bar" style="margin-top:10px;">
+
+                            <span id="player-progress" style="width:65%"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <aside class="playlist">
+
+                    <h4>
+                        Conteúdo do curso
+                    </h4>
+
+                    <div class="aula-item assistida">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        Módulo 01: Introdução
+
+                    </div>
+
+                    <div class="aula-item">
+
+                        <i class="fa-solid fa-circle-play"></i>
+
+                        Módulo 02: Fundamentos
+
+                    </div>
+
+                    <div class="aula-item">
+
+                        <i class="fa-solid fa-circle-play"></i>
+
+                        Módulo 03: Projeto prático
+
+                    </div>
+
+                    <div class="aula-item">
+
+                        <i class="fa-solid fa-circle-play"></i>
+
+                        Módulo 04: Avaliação
+
+                    </div>
+
+                    <div class="aula-item">
+
+                        <i class="fa-solid fa-certificate"></i>
+
+                        Certificado
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- =========================================================
+         CANDIDATURAS
+    ========================================================= -->
+
+    <div id="page-candidaturas" class="page">
+
+        <main class="container">
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <h2>
+                        Minhas candidaturas
+                    </h2>
+
+                    <p>
+                        Acompanhe cada etapa dos processos seletivos.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="application-card">
+
+                <div>
+
+                    <span class="badge badge-aprendiz">
+                        Jovem Aprendiz
+                    </span>
+
+                    <h3 style="margin-top:8px;">
+                        Assistente Administrativo Júnior
+                    </h3>
+
+                    <p class="application-company">
+                        Banco Itaú Unibanco • São Paulo - SP
+                    </p>
+
+                </div>
+
+                <span class="status status-analysis">
+                    Em análise
+                </span>
+
+            </div>
+
+            <div class="application-card">
+
+                <div>
+
+                    <span class="badge badge-estagio">
+                        Estágio
+                    </span>
+
+                    <h3 style="margin-top:8px;">
+                        Técnico em Suporte de TI
+                    </h3>
+
+                    <p class="application-company">
+                        Localiza Labs • Belo Horizonte - MG
+                    </p>
+
+                </div>
+
+                <span class="status status-interview">
+                    Entrevista
+                </span>
+
+            </div>
+
+            <div class="application-card">
+
+                <div>
+
+                    <span class="badge badge-aprendiz">
+                        Jovem Aprendiz
+                    </span>
+
+                    <h3 style="margin-top:8px;">
+                        Operador de Atendimento
+                    </h3>
+
+                    <p class="application-company">
+                        Magazine Luiza • Rio de Janeiro - RJ
+                    </p>
+
+                </div>
+
+                <span class="status status-approved">
+                    Aprovada
+                </span>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- =========================================================
+         CURRÍCULO
+    ========================================================= -->
+
+    <div id="page-curriculo" class="page">
+
+        <main class="container">
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <h2>
+                        Criador de currículo
+                    </h2>
+
+                    <p>
+                        Preencha seus dados e veja o resultado em tempo real.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="gerador-container">
+
+                <form class="formulario" onsubmit="event.preventDefault()">
+
+                    <div class="form-group">
+
+                        <label>
+                            Nome completo
+                        </label>
+
+                        <input id="in-nome" type="text" placeholder="Ex: Lucas Henrique Souza" oninput="atualizarCV()">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            E-mail
+                        </label>
+
+                        <input id="in-email" type="email" placeholder="lucas@email.com" oninput="atualizarCV()">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Telefone
+                        </label>
+
+                        <input id="in-tel" type="tel" placeholder="(81) 99999-9999" oninput="atualizarCV()">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Cidade
+                        </label>
+
+                        <input id="in-cidade" type="text" placeholder="Sua cidade" oninput="atualizarCV()">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Formação
+                        </label>
+
+                        <input id="in-escola" type="text" placeholder="Ensino Médio - 2º ano" oninput="atualizarCV()">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Objetivo profissional
+                        </label>
+
+                        <textarea id="in-objetivo" rows="4" placeholder="Descreva seu objetivo..."
+                            oninput="atualizarCV()"></textarea>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Habilidades
+                        </label>
+
+                        <textarea id="in-hab" rows="4" placeholder="Ex: HTML, CSS, comunicação..."
+                            oninput="atualizarCV()"></textarea>
+
+                    </div>
+
+                    <button class="btn btn-primary" style="width:100%;" onclick="window.print()">
+
+                        <i class="fa-solid fa-print"></i>
+
+                        Exportar / Imprimir PDF
+
+                    </button>
+
+                </form>
+
+                <section class="preview-cv" id="curriculo-preview">
+
+                    <div class="cv-header">
+
+                        <h2 id="cv-nome">
+                            SEU NOME COMPLETO
+                        </h2>
+
+                        <p>
+
+                            <i class="fa-solid fa-envelope"></i>
+
+                            <span id="cv-email">
+                                contato@seuprovedor.com
+                            </span>
+
+                            &nbsp; | &nbsp;
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <span id="cv-tel">
+                                (00) 00000-0000
+                            </span>
+
+                            &nbsp; | &nbsp;
+
+                            <span id="cv-cidade">
+                                Sua cidade
+                            </span>
+
+                        </p>
+
+                    </div>
+
+                    <div class="cv-secao">
+
+                        <h4>
+                            Objetivo profissional
+                        </h4>
+
+                        <p id="cv-objetivo">
+                            Insira seu objetivo profissional no painel
+                            ao lado.
+                        </p>
+
+                    </div>
+
+                    <div class="cv-secao">
+
+                        <h4>
+                            Formação
+                        </h4>
+
+                        <p id="cv-escola">
+                            Informação acadêmica em aberto.
+                        </p>
+
+                    </div>
+
+                    <div class="cv-secao">
+
+                        <h4>
+                            Competências
+                        </h4>
+
+                        <p id="cv-hab">
+                            Indique suas competências técnicas e
+                            comportamentais.
+                        </p>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- =========================================================
+         PERFIL
+    ========================================================= -->
+
+    <div id="page-perfil" class="page">
+
+        <main class="container">
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <h2>
+                        Meu perfil
+                    </h2>
+
+                    <p>
+                        Gerencie suas informações e acompanhe seu progresso.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="profile-layout">
+
+                <aside class="profile-card">
+
+                    <div class="profile-avatar">
+                        LS
+                    </div>
+
+                    <h3>
+                        Lucas Henrique
+                    </h3>
+
+                    <p>
+                        Jovem em desenvolvimento profissional
+                    </p>
+
+                    <div class="profile-menu">
+
+                        <button>
+                            <i class="fa-solid fa-user"></i>
+                            Informações pessoais
+                        </button>
+
+                        <button>
+                            <i class="fa-solid fa-bell"></i>
+                            Notificações
+                        </button>
+
+                        <button>
+                            <i class="fa-solid fa-lock"></i>
+                            Segurança
+                        </button>
+
+                    </div>
+
+                </aside>
+
+                <section class="profile-content">
+
+                    <h3>
+                        Informações do perfil
+                    </h3>
+
+                    <p style="
+                        color:var(--gray);
+                        margin:5px 0 25px;
+                        ">
+                        Essas informações ajudam a plataforma a
+                        apresentar oportunidades mais relevantes.
+                    </p>
+
+                    <div class="form-group">
+
+                        <label>
+                            Nome
+                        </label>
+
+                        <input type="text" value="Lucas Henrique">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            E-mail
+                        </label>
+
+                        <input type="email" value="lucas@email.com">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Área de interesse
+                        </label>
+
+                        <select>
 
                             <option>
-                                Sem tosa
+                                Tecnologia
                             </option>
 
                             <option>
-                                Tosa higiênica
+                                Administração
                             </option>
 
                             <option>
-                                Tosa completa
+                                Marketing
                             </option>
 
                             <option>
-                                Tosa na tesoura
+                                Design
                             </option>
 
                         </select>
 
-                    </label>
+                    </div>
 
-                </div>
-
-
-                <div class="service-options">
-
-                    <label class="check-card">
-
-                        <input type="checkbox" id="appointmentBath">
-
-                        <span>
-                            🛁
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Banho
-                            </strong>
-
-                            <small>
-                                Incluir banho
-                            </small>
-
-                        </div>
-
-                    </label>
-
-
-                    <label class="check-card">
-
-                        <input type="checkbox" id="appointmentGrooming">
-
-                        <span>
-                            ✂️
-                        </span>
-
-                        <div>
-
-                            <strong>
-                                Tosa
-                            </strong>
-
-                            <small>
-                                Incluir tosa
-                            </small>
-
-                        </div>
-
-                    </label>
-
-                </div>
-
-
-                <label class="full-label">
-
-                    Observações
-
-                    <textarea id="appointmentNotes" placeholder="Alguma observação sobre o pet..."></textarea>
-
-                </label>
-
-
-                <div class="modal-footer">
-
-                    <button type="button" class="secondary-button close-modal">
-                        Cancelar
+                    <button class="btn btn-primary" onclick="mostrarToast('Perfil atualizado com sucesso!')">
+                        <i class="fa-solid fa-check"></i>
+                        Salvar alterações
                     </button>
 
-                    <button type="submit" class="primary-button">
-                        Criar agendamento
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-     MODAL CLIENTE
-===================================================== -->
-
-    <div class="modal" id="clientModal">
-
-        <div class="modal-box">
-
-            <div class="modal-header">
-
-                <div>
-
-                    <h2>
-                        Novo cliente
-                    </h2>
-
-                    <p>
-                        Cadastre o cliente e seu pet.
-                    </p>
-
-                </div>
-
-                <button class="close-modal">
-                    ×
-                </button>
+                </section>
 
             </div>
 
-
-            <form id="clientForm">
-
-                <div class="form-grid">
-
-                    <label>
-                        Nome do dono
-
-                        <input type="text" id="clientName" required>
-
-                    </label>
-
-
-                    <label>
-                        WhatsApp
-
-                        <input type="tel" id="clientPhone" required>
-
-                    </label>
-
-
-                    <label>
-                        Nome do pet
-
-                        <input type="text" id="clientPet" required>
-
-                    </label>
-
-
-                    <label>
-                        Tipo de animal
-
-                        <select id="animalType">
-
-                            <option>
-                                Cachorro
-                            </option>
-
-                            <option>
-                                Gato
-                            </option>
-
-                            <option>
-                                Outro
-                            </option>
-
-                        </select>
-
-                    </label>
-
-                </div>
-
-
-                <label class="full-label">
-
-                    Observações
-
-                    <textarea id="clientNotes"></textarea>
-
-                </label>
-
-
-                <div class="modal-footer">
-
-                    <button type="button" class="secondary-button close-modal">
-                        Cancelar
-                    </button>
-
-                    <button type="submit" class="primary-button">
-                        Cadastrar cliente
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
+        </main>
 
     </div>
 
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
 
-    <!-- =====================================================
-     MODAL PRODUTO
-===================================================== -->
+    <footer>
 
-    <div class="modal" id="productModal">
+        <div class="footer-grid">
 
-        <div class="modal-box small-modal">
+            <div>
 
-            <div class="modal-header">
+                <div class="footer-logo">
 
-                <div>
+                    <i class="fa-solid fa-rocket"></i>
 
-                    <h2>
-                        Novo produto
-                    </h2>
-
-                    <p>
-                        Área exclusiva do chefe.
-                    </p>
+                    StartJovem
 
                 </div>
 
-                <button class="close-modal">
-                    ×
-                </button>
+                <p>
+                    Uma plataforma criada para conectar jovens
+                    a oportunidades de desenvolvimento e entrada
+                    no mercado de trabalho.
+                </p>
 
             </div>
 
+            <div>
 
-            <form id="productForm">
+                <h4>
+                    Plataforma
+                </h4>
 
-                <label class="full-label">
+                <a onclick="navegar('vagas')">
+                    Vagas
+                </a>
 
-                    Nome do produto
+                <a onclick="navegar('cursos')">
+                    Cursos
+                </a>
 
-                    <input type="text" id="productName" required>
+                <a onclick="navegar('curriculo')">
+                    Currículo
+                </a>
 
-                </label>
+            </div>
 
+            <div>
 
-                <div class="form-grid">
+                <h4>
+                    Ajuda
+                </h4>
 
-                    <label>
+                <a>
+                    Central de ajuda
+                </a>
 
-                        Preço
+                <a>
+                    Privacidade
+                </a>
 
-                        <input type="number" id="productPrice" min="0" step="0.01" required>
+                <a>
+                    Termos de uso
+                </a>
 
-                    </label>
-
-
-                    <label>
-
-                        Quantidade
-
-                        <input type="number" id="productQuantity" min="0" required>
-
-                    </label>
-
-                </div>
-
-
-                <div class="modal-footer">
-
-                    <button type="button" class="secondary-button close-modal">
-                        Cancelar
-                    </button>
-
-                    <button type="submit" class="primary-button">
-                        Cadastrar produto
-                    </button>
-
-                </div>
-
-            </form>
+            </div>
 
         </div>
 
-    </div>
+        <div class="footer-bottom">
 
+            © 2026 StartJovem Hub.
+            Desenvolvido para apoiar jovens talentos.
 
-    <!-- =====================================================
-     TOAST
-===================================================== -->
+        </div>
 
-    <div class="toast" id="toast">
+    </footer>
 
-        <span>
-            ✓
-        </span>
-
-        <p>
-            Operação realizada!
-        </p>
-
-    </div>
-
-
-    <script src="script.js"></script>
+    <div id="toast-container"></div>
 
 </body>
+
+<script src="java.js"></script>
 
 </html>
